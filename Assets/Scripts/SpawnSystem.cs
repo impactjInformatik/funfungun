@@ -12,10 +12,14 @@ public class SpawnSystem : MonoBehaviour {
     public Transform target;
 
     public GameObject enemyPrefab;
-    public int enemyCount;
+    public int waveCounts;
 
     private float timer;
     public float spawnRate;
+
+    //Position of player.
+    private Vector2 targetPos;
+
 
     // Use this for initialization
     void Start() {
@@ -23,16 +27,20 @@ public class SpawnSystem : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-        Vector2 targetPos = target.position;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothTime);
-        
+    void FixedUpdate() {
+        /* Following the player, so enemys spawn near of him. */
+        this.targetPos = target.position;
+        transform.position = Vector3.SmoothDamp(transform.position, this.targetPos, ref velocity, smoothTime);
     }
 
     IEnumerator spawnEnemys() {
-        Vector2 targetPos = target.position;
-        Vector2 position = targetPos + new Vector2(Random.Range(-size.x / 2, size.x / 2), Random.Range(-size.y / 2, size.y / 2));
-        Instantiate(enemyPrefab, position, Quaternion.identity);
-        yield return new WaitForSeconds(spawnRate);
+        yield return new WaitForSeconds(3);
+        while (true) {
+            for (int i = 0; i < waveCounts; i++) {
+                Vector2 position = this.targetPos + new Vector2(Random.Range(-size.x / 2, size.x / 2), Random.Range(-size.y / 2, size.y / 2));
+                Instantiate(enemyPrefab, position, Quaternion.identity);
+                yield return new WaitForSeconds(spawnRate);
+            }
+        }
     }
 }
