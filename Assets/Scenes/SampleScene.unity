@@ -125,6 +125,8 @@ GameObject:
   - component: {fileID: 277197802}
   - component: {fileID: 277197801}
   - component: {fileID: 277197803}
+  - component: {fileID: 277197804}
+  - component: {fileID: 277197805}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -246,6 +248,45 @@ MonoBehaviour:
     type: 2}
   muzzleFlashPrefab: {fileID: 4388621607466576, guid: 0f6a12a63cec5fb4784e928d8215ca2e,
     type: 2}
+--- !u!61 &277197804
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 277197798}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.18, y: 0.15}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 10, y: 10}
+    newSize: {x: 10, y: 10}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.45, y: 5.06}
+  m_EdgeRadius: 0
+--- !u!114 &277197805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 277197798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c28982e7538664a98790b178db0afe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: -0.57, y: -0.77}
+  shadowMaterial: {fileID: 2100000, guid: e2be04f01272b584ba0775a1cee8afae, type: 2}
+  shadowColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &432078312
 Prefab:
   m_ObjectHideFlags: 0
@@ -340,8 +381,10 @@ MonoBehaviour:
   target: {fileID: 277197800}
   enemyPrefab: {fileID: 1918346841963528, guid: 153cbedd2a60f344186402aeec014daa,
     type: 2}
-  waveCounts: 1
+  EnemyPerWaveCounter: 10
   spawnRate: 1
+  startCountdown: 1
+  waveWait: 4
 --- !u!4 &1149584290
 Transform:
   m_ObjectHideFlags: 0

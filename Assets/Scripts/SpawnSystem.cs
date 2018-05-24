@@ -12,14 +12,15 @@ public class SpawnSystem : MonoBehaviour {
     public Transform target;
 
     public GameObject enemyPrefab;
-    public int waveCounts;
+    public int EnemyPerWaveCounter;
 
     private float timer;
     public float spawnRate;
 
     //Position of player.
     private Vector2 targetPos;
-
+    public int startCountdown;
+    public int waveWait;
 
     // Use this for initialization
     void Start() {
@@ -34,13 +35,27 @@ public class SpawnSystem : MonoBehaviour {
     }
 
     IEnumerator spawnEnemys() {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(startCountdown);
+        /* while loop symbolize a 'wave'
+         difficulty idea: maybe increase speed of enemys when wave is getting bigger.
+         */
         while (true) {
-            for (int i = 0; i < waveCounts; i++) {
+            /* a for loop is there to update our positions and random spawn spots */
+            for (int i = 0; i < EnemyPerWaveCounter; i++) {
                 Vector2 position = this.targetPos + new Vector2(Random.Range(-size.x / 2, size.x / 2), Random.Range(-size.y / 2, size.y / 2));
                 Instantiate(enemyPrefab, position, Quaternion.identity);
                 yield return new WaitForSeconds(spawnRate);
             }
+            EnemyPerWaveCounter += 5;
+            if (spawnRate == 1.0f || spawnRate == 0.5f) {
+                spawnRate -= 0.25f;
+            }
+            if (spawnRate == 0.25f) {
+                spawnRate = 0.25f;
+            }
+
+            yield return new WaitForSeconds(waveWait);
         }
+
     }
 }
